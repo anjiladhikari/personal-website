@@ -174,14 +174,7 @@ const Hero = () => {
                     </a>
                 </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1, duration: 1, repeat: Infinity, repeatType: "reverse" }}
-                    className="absolute bottom-10"
-                >
-                    <ArrowDown className="text-[var(--text-color)]/50" />
-                </motion.div>
+        
             </div>
         </section>
     );
