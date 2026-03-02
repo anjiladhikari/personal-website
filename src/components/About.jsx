@@ -41,10 +41,10 @@ const About = () => {
                             education, and enterprise domains.
                         </p>
                         <p className="text-[var(--text-color)]/80 leading-relaxed">
-                            Currently pursuing Master of Applied Artificial Intelligence at Deakin University,
-                            I combine academic rigor with practical industry experience. I'm passionate about
-                            research, model optimization, prompt engineering, and delivering impactful AI
-                            solutions that solve real-world problems.
+                            I hold a Master of Applied Artificial Intelligence from Deakin University and 
+                            combine academic rigor with practical industry experience. 
+                            I’m passionate about research, model optimization, 
+                            prompt engineering, and delivering impactful AI solutions to real-world problems.
                         </p>
 
                         <div className="pt-4">
