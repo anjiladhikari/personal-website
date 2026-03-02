@@ -139,9 +139,9 @@ const Hero = () => {
                     transition={{ delay: 0.4 }}
                     className="max-w-2xl text-[var(--text-color)]/70 mb-10 text-lg leading-relaxed"
                 >
-                    Highly driven AI/ML engineer with 5+ years of experience in machine learning, NLP,
-                    computer vision, and Generative AI. Passionate about building scalable AI solutions
-                    and intelligent agents.
+                    Highly driven AI/ML engineer with experience in machine learning, NLP,
+                    computer vision, and Generative AI. Passionate about building scalable AI 
+                    solutions and intelligent agents.
                 </motion.p>
 
                 <motion.div

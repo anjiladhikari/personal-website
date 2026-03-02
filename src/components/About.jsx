@@ -20,7 +20,7 @@ const About = () => {
                         About Me
                     </h2>
                     <p className="text-[var(--text-color)]/70 max-w-2xl mx-auto">
-                        Highly driven and detail-oriented AI/ML engineer with 5+ years of experience in
+                        Highly driven and detail-oriented AI/ML engineer with experience in
                         machine learning, natural language processing, computer vision, and Generative AI.
                     </p>
                 </motion.div>
