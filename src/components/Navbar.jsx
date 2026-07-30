@@ -71,6 +71,7 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex-shrink-0">
+                        <RouterLink to="/" onClick={() => window.scrollTo({ top: 0, behavior: location.pathname === '/' ? 'smooth' : 'auto' })}>
                         <motion.span
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -78,6 +79,7 @@ const Navbar = () => {
                         >
                             Anjil Adhikari
                         </motion.span>
+                        </RouterLink>
                     </div>
 
                     <div className="hidden md:block">
