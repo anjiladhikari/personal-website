@@ -14,9 +14,15 @@ const VisitorCounter = () => {
 
             try {
                 // Try to increment first
-                const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`);
+                let response = null;
+                try {
+                    response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`);
+                } catch {
+                    // Blocked or offline: 
+                    // fall through to the plain read below
+                }
 
-                if (response.ok) {
+                if (response && response.ok) {
                     const data = await response.json();
                     if (data && typeof data.count === 'number') {
                         setCount(data.count);
@@ -25,8 +31,9 @@ const VisitorCounter = () => {
                     }
                 }
 
-                // If increment failed (e.g. rate limit), try to just get the count
-                const getResponse = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}`);
+                // If increment failed (e.g. rate limit),
+                //  try to just get the count
+                const getResponse = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/`);
                 if (getResponse.ok) {
                     const data = await getResponse.json();
                     if (data && typeof data.count === 'number') {
@@ -47,7 +54,7 @@ const VisitorCounter = () => {
     if (loading) return (
         <div className="flex items-center justify-center space-x-2 text-gray-500 text-xs">
             <Eye size={14} />
-            <span>Loading...</span>
+            <span>Views</span>
         </div>
     );
 
