@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-scroll';
-import { Link as RouterLink } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, scroller } from 'react-scroll';
+import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -34,6 +34,26 @@ const Navbar = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const pendingScroll = useRef(null);
+
+    // After routing back to the homepage, scroll to the section that was clicked
+    useEffect(() => {
+        if (location.pathname === '/' && pendingScroll.current) {
+            const target = pendingScroll.current;
+            pendingScroll.current = null;
+            scroller.scrollTo(target, { smooth: true, duration: 500, offset: -70 });
+        }
+    }, [location.pathname]);
+
+    const handleSectionClick = (to) => {
+        if (location.pathname !== '/') {
+            pendingScroll.current = to;
+            navigate('/');
+        }
+    };
 
     const navLinks = [
         { name: 'Home', to: 'home' },
@@ -99,6 +119,7 @@ const Navbar = () => {
                                         className="relative group px-3 py-2 text-sm font-medium cursor-pointer transition-colors text-[var(--text-color)] hover:text-primary"
                                         activeClass="text-primary"
                                         spy={true}
+                                        onClick={() => handleSectionClick(link.to)}
                                     >
                                         {link.name}
                                         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary transition-all duration-300 group-hover:w-full"></span>
@@ -167,7 +188,7 @@ const Navbar = () => {
                                     smooth={true}
                                     duration={500}
                                     offset={-70}
-                                    onClick={() => setIsOpen(false)}
+                                    onClick={() => { setIsOpen(false); handleSectionClick(link.to); }}
                                     className="text-[var(--text-color)] hover:text-primary block px-3 py-2 rounded-md text-base font-medium cursor-pointer"
                                 >
                                     {link.name}
