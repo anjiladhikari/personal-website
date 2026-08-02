@@ -44,24 +44,7 @@ Personal portfolio of **Anjil Adhikari**, an AI/ML engineer with experience in m
 
 ---
 
-## Getting Started
 
-```bash
-git clone https://github.com/anjiladhikari/anjiladhikari7.git
-cd anjiladhikari7
-npm install
-npm run dev
-```
-
-Open [http://localhost:5173](http://localhost:5173) in your browser.
-
-### Other Commands
-
-```bash
-npm run build    # Production build → dist/
-npm run preview  # Preview the production build locally
-npm run lint     # Run ESLint
-```
 
 ---
 
