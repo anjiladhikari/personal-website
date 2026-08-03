@@ -98,3 +98,4 @@ Hosted at [anjiladhikari.com.np](https://anjiladhikari.com.np/). Automated deplo
 - [linkedin.com/in/anjil7](https://www.linkedin.com/in/anjil7/)
 - [twitter.com/anjiladhikari07](https://twitter.com/anjiladhikari07)
 - [github.com/anjiladhikari](https://github.com/anjiladhikari)
+- [youtube.com/@geeky anjil](https://www.youtube.com/@geeky_anjil)
