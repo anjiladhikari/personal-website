@@ -1,27 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, scroller } from 'react-scroll';
 import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
-
-    useEffect(() => {
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-        localStorage.setItem('theme', theme);
-    }, [theme]);
-
-    const toggleTheme = () => {
-        setTheme(theme === 'dark' ? 'light' : 'dark');
-    };
-
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 50) {
@@ -128,12 +113,6 @@ const Navbar = () => {
                                     </Link>
                                 );
                             })}
-                            <button
-                                onClick={toggleTheme}
-                                className="p-2 rounded-full hover:bg-[var(--card-bg)] transition-colors text-[var(--text-color)]"
-                            >
-                                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-                            </button>
                         </div>
                     </div>
 
@@ -197,16 +176,6 @@ const Navbar = () => {
                                 </Link>
                             );
                         })}
-                        <button
-                            onClick={() => {
-                                toggleTheme();
-                                setIsOpen(false);
-                            }}
-                            className="flex items-center w-full text-[var(--text-color)] hover:text-primary px-3 py-2 rounded-md text-base font-medium cursor-pointer"
-                        >
-                            {theme === 'dark' ? <Sun size={20} className="mr-2" /> : <Moon size={20} className="mr-2" />}
-                            {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-                        </button>
                     </div>
                 </motion.div>
             )}
