@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import { Briefcase, Calendar, MapPin, ArrowRight, ArrowLeft, ArrowDown } from 'lucide-react';
 
 const Experience = () => {
     const experiences = [
@@ -19,13 +19,6 @@ const Experience = () => {
             description: "Engineered hallucination detection pipelines reducing factual errors by 20%."
         },
         {
-            title: "Machine Learning Engineer",
-            company: "Fusemachine",
-            location: "New York, USA (Remote)",
-            period: "March 2022 - Sep 2023",
-            description: "Built OCR systems and LLM pipelines, leading a team of 6 engineers."
-        },
-        {
             title: "Data Analyst",
             company: "slum2school",
             location: "Lagos, Nigeria (Remote)",
@@ -38,6 +31,13 @@ const Experience = () => {
             location: "Remote",
             period: "Jan 2023 - Sep 2023",
             description: "Oversaw curriculum, instruction, and recruitment for an international AI fellowship"
+        },
+        {
+            title: "Machine Learning Engineer",
+            company: "Fusemachine",
+            location: "New York, USA (Remote)",
+            period: "March 2022 - Sep 2023",
+            description: "Built OCR systems and LLM pipelines, leading a team of 6 engineers."
         },
         {
             title: "Content Creator",
@@ -64,6 +64,10 @@ const Experience = () => {
         show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
     };
 
+    // Chunk into rows of 3 so the flow snakes: row 1 left→right, row 2 right→left
+    const rows = [];
+    for (let i = 0; i < experiences.length; i += 3) rows.push(experiences.slice(i, i + 3));
+
     return (
         <section id="experience" className="py-20 bg-[var(--bg-color)]/50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -78,56 +82,61 @@ const Experience = () => {
                     </h2>
                 </motion.div>
 
-                <div className="relative">
-                    {/* Vertical Line */}
-                    <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-1 bg-[var(--border-color)]" />
-
-                    <motion.div
-                        variants={container}
-                        initial="hidden"
-                        whileInView="show"
-                        viewport={{ once: true, margin: "-100px" }}
-                        className="space-y-12"
-                    >
-                        {experiences.map((exp, index) => (
-                            <motion.div
-                                key={index}
-                                variants={item}
-                                className={`relative flex flex-col md:flex-row ${index % 2 === 0 ? 'md:flex-row-reverse' : ''
-                                    }`}
-                            >
-                                {/* Timeline Dot */}
-                                <div className="absolute left-[-5px] md:left-1/2 transform md:-translate-x-1/2 w-3 h-3 bg-secondary rounded-full border-4 border-[var(--bg-color)] z-10 mt-6 shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
-
-                                {/* Content */}
-                                <div className="md:w-1/2 pl-8 md:pl-0 md:px-12">
-                                    <motion.div
-                                        whileHover={{ scale: 1.02, y: -5 }}
-                                        className="bg-[var(--card-bg)] p-6 rounded-xl border-l-4 border-secondary/50 hover:border-secondary transition-all duration-300 shadow-lg hover:shadow-[0_20px_50px_rgba(168,85,247,0.15)] hover:bg-gradient-to-br hover:from-[var(--card-bg)] hover:to-secondary/5"
-                                    >
-                                        <div className="flex flex-col gap-2 mb-4">
-                                            <h3 className="text-xl font-bold text-[var(--text-color)]">{exp.title}</h3>
-                                            <h4 className="text-lg text-secondary">{exp.company}</h4>
-                                            <div className="flex flex-wrap gap-4 text-sm text-[var(--text-color)]/60">
-                                                <span className="flex items-center gap-1">
-                                                    <Calendar size={14} />
-                                                    {exp.period}
-                                                </span>
-                                                <span className="flex items-center gap-1">
-                                                    <MapPin size={14} />
-                                                    {exp.location}
-                                                </span>
+                <motion.div
+                    variants={container}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, margin: "-100px" }}
+                    className="space-y-3"
+                >
+                    {rows.map((row, rowIndex) => (
+                        <React.Fragment key={rowIndex}>
+                            <div className={`flex flex-col items-stretch gap-3 md:gap-4 ${rowIndex % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+                                {row.map((exp, index) => (
+                                    <React.Fragment key={exp.title + exp.company}>
+                                        {index > 0 && (
+                                            <div className="flex items-center justify-center shrink-0 text-secondary/70">
+                                                <ArrowDown size={20} className="md:hidden" />
+                                                {rowIndex % 2 === 1
+                                                    ? <ArrowLeft size={20} className="hidden md:block" />
+                                                    : <ArrowRight size={20} className="hidden md:block" />}
                                             </div>
-                                        </div>
-                                        <p className="text-[var(--text-color)]/80 text-sm leading-relaxed">
-                                            {exp.description}
-                                        </p>
-                                    </motion.div>
+                                        )}
+                                        <motion.div variants={item} className="flex-1 min-w-0">
+                                            <motion.div
+                                                whileHover={{ scale: 1.02, y: -5 }}
+                                                className="h-full bg-[var(--card-bg)] p-6 rounded-xl border-l-4 border-secondary/50 hover:border-secondary transition-all duration-300 shadow-lg hover:shadow-[0_20px_50px_rgba(168,85,247,0.15)] hover:bg-gradient-to-br hover:from-[var(--card-bg)] hover:to-secondary/5"
+                                            >
+                                                <div className="flex flex-col gap-2 mb-4">
+                                                    <h3 className="text-xl font-bold text-[var(--text-color)]">{exp.title}</h3>
+                                                    <h4 className="text-lg text-secondary">{exp.company}</h4>
+                                                    <div className="flex flex-wrap gap-4 text-sm text-[var(--text-color)]/60">
+                                                        <span className="flex items-center gap-1">
+                                                            <Calendar size={14} />
+                                                            {exp.period}
+                                                        </span>
+                                                        <span className="flex items-center gap-1">
+                                                            <MapPin size={14} />
+                                                            {exp.location}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <p className="text-[var(--text-color)]/80 text-sm leading-relaxed">
+                                                    {exp.description}
+                                                </p>
+                                            </motion.div>
+                                        </motion.div>
+                                    </React.Fragment>
+                                ))}
+                            </div>
+                            {rowIndex < rows.length - 1 && (
+                                <div className={`flex justify-center text-secondary/70 ${rowIndex % 2 === 0 ? 'md:justify-end md:pr-[15%]' : 'md:justify-start md:pl-[15%]'}`}>
+                                    <ArrowDown size={20} />
                                 </div>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </div>
+                            )}
+                        </React.Fragment>
+                    ))}
+                </motion.div>
             </div>
         </section>
     );
